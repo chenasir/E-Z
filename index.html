@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实时听译（英→中）</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎧 实时听译：英文 → 中文</h1>
+            <p>麦克风实时识别英文，并即时翻译为中文</p>
+        </header>
+
+        <main>
+            <section class="controls">
+                <div class="left">
+                    <button id="start-btn" class="primary-btn">开始识别</button>
+                    <button id="stop-btn" class="secondary-btn" disabled>停止</button>
+                    <button id="clear-btn" class="secondary-btn">清空</button>
+                </div>
+                <div class="right">
+                    <label class="inline">引擎：</label>
+                    <select id="api-type">
+                        <option value="tencent">腾讯翻译（推荐）</option>
+                        <option value="deepseek">DeepSeek</option>
+                    </select>
+                    <input id="api-key" type="password" placeholder="DeepSeek: sk-xxx；腾讯无需填写">
+                </div>
+            </section>
+
+            <section class="panels">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>🎙️ 实时英文识别</h3>
+                        <span id="asr-status" class="status off">已停止</span>
+                    </div>
+                    <textarea id="english-live" placeholder="开始后，这里会实时显示识别到的英文..." rows="8"></textarea>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>🌐 实时中文翻译</h3>
+                        <span id="tr-status" class="status idle">空闲</span>
+                    </div>
+                    <textarea id="chinese-live" placeholder="这里将实时显示中文翻译..." rows="8" readonly></textarea>
+                </div>
+            </section>
+
+            <section class="tips">
+                <details>
+                    <summary>使用说明与优化建议</summary>
+                    <ul>
+                        <li>第一次使用需允许浏览器访问麦克风。</li>
+                        <li>DeepSeek 前端直连；腾讯翻译走云端函数代理，无需本地后端与密钥输入。</li>
+                        <li>识别采用英文（en-US）连续模式，结果会去重并去抖。</li>
+                        <li>翻译采用节流策略，降低频繁请求带来的费用与限流风险。</li>
+                    </ul>
+                </details>
+            </section>
+
+            <section class="settings">
+                <details id="settings-panel">
+                    <summary>⚙️ 设置</summary>
+                    <div class="settings-grid">
+                        <label>
+                            <span>窗口大小（字符）</span>
+                            <input type="number" id="opt-window" min="200" max="5000" step="100" value="1400">
+                        </label>
+                        <label>
+                            <span>去抖时长（毫秒）</span>
+                            <input type="number" id="opt-debounce" min="200" max="5000" step="100" value="1000">
+                        </label>
+                        <label class="switch-row">
+                            <span>自动滚动到底部</span>
+                            <input type="checkbox" id="opt-autoscroll" checked>
+                        </label>
+                        <div class="settings-actions">
+                            <button id="save-settings" class="primary-btn">保存设置</button>
+                            <button id="reset-settings" class="secondary-btn">恢复默认</button>
+                        </div>
+                    </div>
+                </details>
+            </section>
+        </main>
+
+        <footer>
+            <p>支持 DeepSeek / 腾讯翻译 · 本地实时听译示例</p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+

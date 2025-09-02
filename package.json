@@ -1,0 +1,23 @@
+{
+  "name": "realtime-translator-proxy",
+  "version": "1.0.0",
+  "description": "Tencent translate proxy for realtime translator (EN->ZH)",
+  "main": "backend-server.js",
+  "scripts": {
+    "start": "node backend-server.js",
+    "dev": "nodemon backend-server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "license": "MIT"
+}
+
+
